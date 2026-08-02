@@ -2,20 +2,20 @@ class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         res = []
         subset = []
-        def dfs(i):
-            
+        used = [False] * len(nums)
 
+        def dfs():
             if len(subset) == len(nums):
                 res.append(subset.copy())
                 return
-            for num in nums:
-                if num in subset:
+            for j in range(len(nums)):
+                if used[j]:
                     continue
-                subset.append(num)
-                dfs(i)
+                used[j] = True
+                subset.append(nums[j])
+                dfs()
                 subset.pop()
+                used[j] = False
 
-            
-
-        dfs(0)
+        dfs()
         return res
